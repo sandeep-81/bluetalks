@@ -1,0 +1,44 @@
+
+
+chatting - main target 
+add friend 
+friend request 
+random chat 
+Account customization
+chat custom 
+search friend 
+	total friends show 
+user about 
+notifications 
+event notifications
+
+chat timing show how much time we do chat ?  
+
+
+Login 
+Register
+Logout
+
+Possibilities :
+Suggestest Friends 
+
+
+Register User:
+aman12@gmail.com
+@_Amandeep12
+
+aman21@gmail.com
+@_Amandeep21
+
+aman13@gmail.com
+@_Amandeep13
+
+sandeep81@gmail.com
+@_Mandy02
+
+
+
+
+
+
+        

@@ -1,0 +1,68 @@
+{% extends "startup.html" %}
+{% block title%} Code Generate {% endblock title%}
+{% block body%}
+
+    <section>
+        
+        <div class="about" id="ohmy">
+            <div class="upper">
+                <button id="rege" style="background-color: red;">Register </button>
+                <button id="fill">Filled </button>
+            </div>
+            <div id="offical-gen">
+                <h2>Generate the Code</h2>
+                <form method="POST">
+                {% csrf_token %}
+                    <button id="generate" name="generate-code" class="local-btn"> {{rand}}</button><br><br>
+                </form>
+                {% if rand != "Generate"%}
+                    <form action="/chat/{{rand}}/"> 
+                    {% csrf_token %}
+                    <button id="go-to-chat" name="go-to-chat" class="local-btn"> Go to Chat</button>
+                    </form>
+                {% endif %}
+            </div> 
+            <div id="offical-fill">
+                <h2 style="margin-left:35px;">Filled The Code</h2>
+                <form method="POST" action="/verify/"> 
+                    {% csrf_token %}
+                    <input type="text" name="code" id="code" placeholder="X-X-X-X-X-X"><br>
+                    <button id="filled" class="local-btn"> Submit </button>
+                </form>
+            </div>
+        </div>
+
+      {{rand|json_script:'rand'}}
+    </section>
+    <script>
+        var reg = document.getElementById("rege")
+        var fill = document.getElementById("fill")
+        var filled = document.getElementById("filled")
+        var code = document.getElementById("code")
+
+        reg.onclick = function(event){
+                reg.style.backgroundColor = "red";
+                reg.style.color = "white";
+                fill.style.backgroundColor = "green";
+                document.getElementById("offical-gen").style.display = 'inline-block';
+                document.getElementById("offical-fill").style.display = "none";
+                
+            }   
+        fill.onclick = function(event){
+            fill.style.backgroundColor = "red";
+            fill.style.color = "white"; 
+            reg.style.backgroundColor = "green";
+            document.getElementById("offical-fill").style.display = "inline-block";
+            document.getElementById("offical-gen").style.display = "none";
+            
+        }
+        filled.onclick = function(event){
+            let rand = document.getElementById("rand").textContent
+            //if(code.value == rand){
+            window.location.href = "ws://127.0.0.1:8080/ws/sc/chat/"+code.value
+             
+        }
+        
+    </script>
+            
+{% endblock body %}

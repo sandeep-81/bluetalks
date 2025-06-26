@@ -1,0 +1,67 @@
+{% extends "startup.html" %}
+{% block title%} Account {% endblock title%}
+{% block body%}
+<style>
+    footer{
+        position: static;
+    }
+</style>
+
+    <section>
+    <div id="acc_div">
+        <h1>Account Settings</h1>
+        <form method="POST"> 
+            {% csrf_token %}
+            <h2> Personal Details </h2>
+ 
+            <div id="login">
+                <label for="fullname"> Username : </label><br>
+                <input type="text" name="fullname" id="sett_fullname" placeholder="Enter Username" value="{{fullname}}" style="width: 600px;"><br> 
+                <label for="Email"> Email : </label><br>
+                <input type="text" name="email" id="sett_email" placeholder="Enter Email Account" value="{{email}}"  style="width: 600px; background-color: white;" disabled><br>
+                <label for="about">About : </label><br>
+                <textarea name="about" id="sett_about" placeholder="Write About Yourself ... " style="width: 600px; height: 70px; border-radius: 10px; font-size: 15px; padding: 8px;">{{about}}</textarea><br>
+            </div><hr>
+            <h2> Reigon &amp; Address </h2>
+            <div style="display: flex; gap: 10px;">
+                
+                <div id="login">
+                    <label for="country"> Country : </label><br>
+                    <input type="text" name="country" value="{{address.0}}" id="sett_country" placeholder="Country"  style="width: 100px;">
+                </div>
+                <div id="login" > 
+                    <label for="state"> State : </label><br>
+                    <input type="text" name="state" id="sett_state" value="{{address.1}}" placeholder="State"  style="width: 100px;"><br>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div id="login" >
+                    <label for="distt"> District : </label><br>
+                    <input type="text" name="distt" id="sett_distt" value="{{address.2}}" placeholder="District" style="width: 100px;">
+                </div>
+                <div id="login">
+                    <label for="pincode"> Pin Code : </label><br>
+                    <input type="text" name="pincode" id="sett_pincode" value="{{address.3}}" placeholder="Pin Code"  style="width: 100px;">
+                </div>
+            </div><hr>
+            <div id="login">
+
+                <h2> Privacy Center</h2>
+                <label for="Access"> Peoples can Search You : </label>
+                <input type="checkbox" name="search" id="accessYes" value="Yes" style="float: right;" {{privacy.0}}><br><br>
+                <label for="Access"> Suggest Account to other users : </label>
+                <input type="checkbox" name="suggest" id="accessYes" value="Yes" style="float: right;" {{privacy.1}}>
+            </div><br><br><br><br>
+    
+            <div style="justify-self: center;">
+                <input type="submit" value="Save" id="login" style="background-color: rgb(5, 106, 5); color:white; padding: 10px; width: 100px; border-radius: 10px; font-size: 15px; ">
+            </div>
+            
+                        
+        </form>
+    </div>
+
+    </section><br><br>
+
+            
+{% endblock body %}

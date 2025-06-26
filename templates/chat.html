@@ -1,0 +1,150 @@
+{% extends "startup.html" %}
+{% block title %} Chats {% endblock title %} 
+{% block body%}
+
+{% if member <= 2 %}
+<section style="display:flex; gap : 40px;">
+    <div class="about">
+        <div class="">
+            <h1> Login your Account</h1>
+            <form id="login" method="POST">
+                {% csrf_token %}
+                <label for="email">Email Address</label><br>
+                <input type="text" name="email" id="email" placeholder="Email Address"><br>
+                <label for="password">Password</label><br>
+                <input type="text" name="password" id="password" placeholder="Password">
+                <a href="\login\forgetp\" id="forget_pass">Forget Password ?</a><br><br>
+                <input type="submit" value="Submit"><br> 
+                <button style="border-radius: 10px; margin: 20px 0 0 100px;"><a href="\register\" id="a"> Create an Account </a></button>
+            </form>
+    </div>
+    </div>
+    <div id="over-chat-box">
+        <p class="showuser"> ... </p>  
+        <div class="chat-box" id="chat-box"> 
+            <p id="pclient">
+                <i id="client">Welcome to BlueTalks ! </i>
+            </p>
+            <div class="loader"></div> 
+            <p style="text-align: center;" id="wait">Waiting for user ... </p>
+        </div> 
+        <div class="typing-box" style="display:none;"> 
+            <form>
+                <input type="text" placeholder="Type your message ..." class="msg" id="msg-typing-box">
+                <input type="button" value="Send" class="msg" id="msg-send">
+            </form>
+        </div>
+    </div>
+</section><br>
+    {% else %}
+    <section>
+            <img src="\static\sad2.png" alt="Something went wrong ." height="300px" style="margin: 50px 0 0 550px;">
+            <h3 style="text-align: center; color:rgba(0, 0, 0, 0.644); margin-right : 40px"> Something went wrong. <br> Please Try Again . </h3>
+    </section><br>
+
+{% endif %}
+
+{{group_no|json_script:"group_no"}}
+{{username|json_script:"username"}}
+{{generater|json_script:"generator"}}
+{{filler|json_script:"filler"}}
+{{total_user|json_script:"total_user"}}
+{{genuser|json_script:"genuser"}}
+{{filluser|json_script:"filluser"}}
+
+<script>
+    var value = ""
+    var fetch_value = ""
+    const username = document.getElementById("username").textContent
+    const generator = document.getElementById("generator").textContent
+    const filler = document.getElementById("filler").textContent
+    const total_user = document.getElementById("total_user").textContent
+    const group_no = document.getElementById("group_no").textContent
+    const genuser = document.getElementById("genuser").textContent
+    const filluser = document.getElementById("filluser").textContent
+    var ws = new WebSocket("ws://"+window.location.host+"/ws/sc/chat/"+group_no+"/")
+    
+    var usernamechange = document.getElementsByClassName('showuser')[0] 
+
+    
+    
+    ws.onopen = function(){
+        console.log("connection successfull")
+        console.log("username",username ) 
+        ws.send(JSON.stringify({'username':username}))
+    }
+    ws.onmessage = function(event){
+        console.log(event)
+        const msgg = JSON.parse(event.data)
+        console.log(msgg) 
+
+        if(msgg.type == "msg_direct_send"){  
+            usernames = String((JSON.parse(event.data)).username)
+            usernamechange.innerText = String(usernames[1]).toUpperCase() +((usernames).slice(2)).replace('"',"")
+            document.getElementsByClassName('loader')[0].style.display = 'none';
+            document.getElementById('wait').style.display = 'none'; 
+            document.getElementsByClassName('typing-box')[0].style.display = 'block';
+            console.log("This is Username : \n",event)  
+        }
+        else if('username' in msgg){
+            return;
+        }
+        else{
+        const msg = JSON.parse(event.data)
+        const pclient = document.getElementById("pclient"); 
+        const client = document.getElementById("client");
+
+        var pclientClone = pclient.cloneNode(true);
+        pclientClone.id = msg.msg;
+
+        fetch_value = msg.msg;
+
+        const childClone = pclientClone.querySelector('#client');
+        if(childClone){
+            childClone.id = msg.msg;
+            childClone.textContent = msg.msg; 
+
+            if(fetch_value == value){
+                childClone.style.borderColor = "red"; 
+                childClone.style.float = "right";
+            }
+            fetch_value = ""
+            value = ""
+        }
+            
+        var chat_box = document.querySelector(".chat-box");
+        chat_box.appendChild(pclientClone); 
+        console.log(pclientClone)
+
+        var messageBody = document.querySelector('.chat-box');
+        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+       
+        // console.log("This is class : ",clientElement.className)         
+    }
+    }
+
+    ws.onclose = function(event){
+        if (event.code === 4001) {
+            alert("The group is full. Please try again later.");
+        }
+        console.log("connection Disconnected")
+    }
+    
+    
+    const send_btn = document.getElementById("msg-send")
+    send_btn.onclick = function(event){
+        const data_fetch = document.getElementById("msg-typing-box")
+        value = data_fetch.value
+        if(String(value) != ""){
+            console.log("the value is : ",value )
+            data_fetch.value = ""
+            
+            ws.send(JSON.stringify({'msg':value}))   
+    }
+}
+    
+</script>
+                    
+
+
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "startup.html" %}
+{% block title %} Chats {% endblock title %} 
+{% block body%}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<section style="display:flex; gap : 40px;">
+    <div class="about">
+        <div class="">
+            <h1> Login your Account</h1>
+            <form id="login" method="POST">
+                {% csrf_token %}
+                <label for="email">Login Address</label><br>
+                <input type="text" name="email" id="email" placeholder="Email Address"><br>
+                <label for="password">Password</label><br>
+                <input type="text" name="password" id="password" placeholder="Password">
+                <a href="\login\forgetp\" id="forget_pass">Forget Password ?</a><br><br>
+                <input type="submit" value="Submit"><br> 
+                <button style="border-radius: 10px; margin: 20px 0 0 100px;"><a href="\register\" id="a"> Create an Account </a></button>
+            </form>
+    </div>
+    </div>
+    <div id="over-chat-box">
+        <div class="showuser">Random Chat </div>  
+        <div class="chat-box" id="chat-box"> 
+            <p id="pclient">
+                <i id="client">Welcome to BlueTalks ! </i>
+            </p>
+           <div class="loader"></div> 
+            <p style="text-align: center;" id="wait">Waiting for user ... </p>
+        </div>  
+        <div class="typing-box" style="display:none;">  
+            <form>
+                <input type="text" placeholder="Type your message ..." class="msg" id="msg-typing-box">
+                <input type="button" value="Send" class="msg" id="msg-send">
+            </form>
+        </div>
+    </div>
+</section><br>
+
+<script>
+    var value = ""
+    var fetch_value = ""
+    var chat_no = ""
+    var ws = new WebSocket("ws://"+window.location.host+"/ws/sc/randchat/")
+    
+    ws.onopen = function(){
+        console.log("connection successfull")
+    }
+
+    ws.onmessage = function(event){
+        console.log("The event data is : ",(JSON.parse((event.data))).msg)
+        if((JSON.parse((event.data))).msg == ".^aconnected.^a"){
+            console.log("Connected")
+            document.getElementsByClassName('loader')[0].style.display = 'none';
+            document.getElementById('wait').style.display = 'none';
+            document.getElementsByClassName('typing-box')[0].style.display = 'block'; 
+            chat_no = (JSON.parse((event.data))).chat_no
+            // ws.send(JSON.stringify((JSON.parse((event.data))).chat_no))
+        }
+        else{
+            
+            const msg = JSON.parse(event.data)
+            console.log(msg , typeof(msg)) 
+            console.log(event , typeof(event))  
+
+
+        const pclient = document.getElementById("pclient"); 
+        const client = document.getElementById("client");
+
+        var pclientClone = pclient.cloneNode(true);
+        pclientClone.id = msg.msg;
+
+        fetch_value = msg.msg;
+
+        const childClone = pclientClone.querySelector('#client');
+        if(childClone){
+            childClone.id = msg.msg;
+            childClone.textContent = msg.msg; 
+            if(fetch_value == value){
+                childClone.style.borderColor = "red"; 
+                childClone.style.float = "right";
+            }
+            fetch_value = ""
+            value = ""
+        }
+            
+        var chat_box = document.querySelector(".chat-box");
+        chat_box.appendChild(pclientClone); 
+        console.log(pclientClone)
+
+        // console.log("This is class : ",clientElement.className)
+    }}
+
+    ws.onclose = function(event){
+        if (event.code === 4001) {
+            alert("The group is full. Please try again later.");
+        }
+        console.log("connection Disconnected")
+    }
+    
+    
+    const send_btn = document.getElementById("msg-send")
+    send_btn.onclick = function(event){
+        const data_fetch = document.getElementById("msg-typing-box")
+        value = data_fetch.value
+        if(String(value) != ""){
+            console.log("the value is : ",value )
+            data_fetch.value = ""
+            
+            ws.send(JSON.stringify({'msg':value,'chat_no':chat_no}))
+    }
+}
+    
+</script>
+                    
+
+{% endblock %}

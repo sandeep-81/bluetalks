@@ -1,0 +1,75 @@
+{% extends "startup.html" %}
+{% block title %} Friends {% endblock title %} 
+{% block body%}
+
+
+<section style="display:flex; gap : 40px;">
+
+<div class="friends"> 
+
+    <h2 style="font-family: cursive;" > Friend Requests </h2>
+    
+    <!-- <div class="friends">  -->
+    <ui>
+        {% for i in request_list%}
+        <li id="sp-friend-req-li"> 
+            <span class="sp-friend-req">
+                <div class="first-letter-username"> {{ i.0 }} </div>
+                <p id="name_{{forloop.counter}}"> {{ i }} </p>
+            </span> 
+            <span id="acpt-del-req">
+                <form method="GET" id="friend-request-form-{{ forloop.counter }}">
+                    <input type="hidden" name="hidden" id="hidden_{{ forloop.counter }}" style="display: none;"> 
+                    <button type="submit" id="btn_accept" onclick="Accept('{{ forloop.counter }}','{{ i }}')"> Accept</button>
+                    <button type="submit" id="btn_delete" onclick="Delete('{{ forloop.counter }}','{{ i }}')"> Delete</button> 
+                </form>
+            </span>
+        </li>     
+        {%endfor%}
+
+    </ui>
+<!-- </div> --> 
+</div>
+<div class="about" id="friends_div">
+    <h2 style="font-family: cursive;" > Friends</h2>
+        {% for i in friend%} 
+        <span class="sp-friend-req" style="background-color: rgb(60, 60, 62); margin: 10px; padding: 10px; border-radius: 15px; ">
+            <div class="first-letter-username"> {{ i.fullname.0.capitalize }} </div>
+            <span style="display: flex; justify-content: space-between; width: 100%;">
+                <button id="p_{{ forloop.counter }}" class="btn_friend_name" onclick="username_click('{{forloop.counter}}' ,'{{i.fullname}}')"> {{i.fullname}} </button>
+                <form method="POST" action="/user/{{i.room_no}}/"> 
+                    {% csrf_token %}
+                    <input type="hidden" name="gotochat" value="{{ i.fullname }}" >
+                    <input type="submit" id="gotochat" value="Go to chat >>">
+                </form>
+            </span> 
+        </span>
+        {% endfor %}
+</div>
+</section>
+
+<script>
+    function Accept(counter , i){
+        console.log(counter , i)
+        var hidden = document.getElementById("hidden_"+counter).value = i
+        console.log(hidden)
+        var form = document.getElementById("friend-request-form-" + counter);
+
+
+    fetch(form.action, { 
+            method: 'GET',
+            headers: { 
+                'Content-Type': 'application/x-www-form-urlencoded' 
+            },
+            body: new URLSearchParams(new FormData(form)).toString() // Send the form data
+        })
+        .then(response => response.text())
+
+
+        function username_click(counter , name){
+
+        }
+    }
+</script>
+
+{% endblock %}

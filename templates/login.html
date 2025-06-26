@@ -1,0 +1,33 @@
+{% extends "startup.html" %}
+{% block title%} Code Generate {% endblock title%}
+
+{% block body%}
+
+    <section>
+        <div class="About">
+                <h1> Login </h1>
+                <p id="p"></p>
+                <form id="login" method="POST">
+                    {% csrf_token %}
+                    <label for="email">Email Address</label><br>
+                    <input type="text" name="email" id="email" placeholder="Email Address"><br>
+                    <label for="password">Password</label><br>
+                    <input type="text" name="password" id="password" placeholder="Password">
+                    <a href="\login\forgetp\" id="forget_pass">Forget Password ?</a><br><br>
+                    <input type="submit" value="Submit"><br> 
+                    <button id="btn"><a href="\register\" id="a"> Create an Account </a></button>
+                </form>
+        </div>
+        {%if error %}
+        <script>
+            document.getElementById("email").style.borderColor  = 'red';
+            document.getElementById("password").style.borderColor  = 'red';
+            document.getElementById("p").innerHTML = "Invalid Email and Password !";
+            document.getElementById("p").style.color = 'red';
+
+        </script>
+        {% endif %}
+
+    </section>
+            
+{% endblock body %}

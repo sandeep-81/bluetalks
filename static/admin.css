@@ -1,0 +1,280 @@
+#logo{
+    margin: 0;
+    filter: invert(1);
+}
+#admin-nav{
+    display: flex;
+    justify-content:space-around;
+}
+#search{
+    padding : 8px;
+    font-size: 17px;
+    /* margin-left: -10px; */
+    border-radius: 5px;
+    background-color: rgb(57, 55, 55);
+    color : white;
+    border: 1px solid rgb(175, 170, 170);
+    
+}
+#home{
+    height: 28px;
+    filter: invert(0.9);
+}
+#random{
+    height: 33px;
+    filter: invert(1);
+}
+#friends{
+    height: 30px;
+    filter: invert(1);
+}
+#admin-ul{
+    margin-left: 310px; 
+    display: flex;
+    gap: 80px;
+    list-style-type: none;
+    margin-right: 80px;   
+}
+#admin-ul li{
+    padding: 1px;
+}
+#admin-ul li:hover{
+    background-color: rgb(44, 43, 43);
+    border: 1px solid rgb(83, 82, 82);
+    border-radius: 4px;
+}
+
+
+#acc-setting ,#acc-notification ,#find-friends{
+    visibility:hidden;
+    position: absolute;
+    background-color:#292828;
+    border: 1px solid white;
+    width: 200px;
+    height: 400px;
+    border-radius: 20px;
+    z-index : 4;
+    top : 65px;
+    right: 50px;
+    padding:30px;
+}
+#find-friends{
+    right: 150px;
+    width: 315px;
+
+}
+
+.acc{
+
+    width:200px; 
+    font-size: 17px;
+    padding: 10px;
+    margin: 3px;
+    border-radius: 10px;
+}
+.acc a{
+    color : black;
+}
+
+/* ################################################################3 */
+
+.tooltip {
+    position: relative;
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    background-color: rgb(41, 41, 41);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border: 1px solid white;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+  friends
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    
+}
+.tooltip .tooltiptext {
+    width: auto;
+    padding: 3px;
+    top: 100%;
+    left: 50%;
+    margin-left: calc(100% - 2*40px);  
+  }
+#tooltiptext:hover{
+    visibility: hidden;
+}
+
+#friend-req{
+    height: auto;
+    width: auto;
+    background-color: rgb(55, 53, 53); 
+    border-radius: 10px;
+    padding: 10px;
+
+    /* float : left; */
+}
+
+
+#sp-friend-req-li , #u-friend{
+    padding: 10px;
+    background-color: rgb(50, 49, 49);
+    height: auto; 
+    width: 90%;
+    border-radius: 20px;
+    list-style-type: none;
+    border: 2px solid black;
+    
+}
+.sp-friend-req{
+    display: flex;
+}
+#acpt-del-req{
+    display: flex;
+    justify-content: space-around;
+}
+#acpt-del-req button{
+    width: 130px;
+    background-color: #434242;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+.sp-friend p{
+    position: relative;
+    top: -5px;
+    left: 23px;
+    font-size: 17px;
+    background-color: #353434;
+    display: inline;
+    cursor: pointer;    
+
+}
+
+#sp-friend-req-li:hover{
+background-color: #3e3e3e; 
+
+}
+.sp-friend-req p{
+    position: relative;
+    top: -5px;
+    left: 23px;
+    font-size: 17px;
+    background-color: #353434;
+    display: inline;
+    cursor: pointer;
+    background-color: inherit;
+    
+}
+
+.search-friend{
+    background-color: red;
+    height: auto;
+    width: auto;
+}
+.search-friend p{
+    display: none;
+}
+#search_friend_div{
+    height: auto;
+    background-color: #353434;
+    border: 1px solid white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 4px;
+}
+
+#search_friend_div p{
+    margin-left: 40px;
+}
+
+#search_friend_div button{
+    height: 30px;
+    border-radius: 10px;
+    margin-top: 11px;
+    margin-right: 8px;
+}
+
+#friends_div{
+    padding-top: 12px; 
+    overflow-y: scroll; 
+    max-height: 459px;
+    width: 500px;
+    
+}
+
+#gotochat{
+    float: right;
+    padding : 10px;
+    background-color: inherit;
+    color: white;
+    font-family: system-ui;
+    font-size: 16px;
+    border: none;
+}
+#friends_div::-webkit-scrollbar{
+    display: none;
+}
+
+.btn_friend_name{
+    border-radius: 10px;
+    width:auto;
+    font-size: 18px; 
+    padding : 6px; 
+    text-align: left;
+    padding-left: 15px;
+    margin:2px;
+    background-color: inherit;
+    border: none;
+    color: white;
+}
+
+/* ####################################################3 */
+
+#acc_div{
+    position: relative;
+    left: 25%;
+    top: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    width: 850px;
+    height: 1050px;
+    background-color: rgba(58, 57, 58, 0.453);
+    align-items: center;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.138);
+
+}
+#acc_div div{
+    background-color: inherit;
+}
+
+
+.clients-right::after{
+    content: "";
+    display: none;
+    position:absolute;
+    right: 100%;
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border: 1px solid black;
+
+}
+
+.clients-right-show::after{
+    display: block;
+}
+.clients-right-hide::after{
+    display: none;
+}
+

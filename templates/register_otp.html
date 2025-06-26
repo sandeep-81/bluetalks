@@ -1,0 +1,25 @@
+{% extends "startup.html" %}
+{% block title%} Code Generate {% endblock title%}
+
+{% block body%}
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+    <section>
+        <div class="Forget">
+                <h1> Verify Email Account </h1> 
+                <form id="forget" method="POST">
+                    {% csrf_token %}
+                    <label for="otp" id="otp_l">Enter OTP</label><br>
+                    <input type="text" name="otp" id="otp" placeholder="X-X-X-X-X-X"><br>
+                    <input type="submit" value="Submit"><br>   
+                </form>
+        </div>
+
+    </section>
+            
+{% endblock body %}

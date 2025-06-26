@@ -1,0 +1,137 @@
+{% extends "startup.html" %}
+{% block title%} Themes {% endblock title%}
+{% block body%}
+<style>
+    footer{
+        position: static;
+    }
+</style>
+
+    <section>
+    <div id="acc_div">
+        <h1>Chat Themes</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <h2> Font &amp; Size </h2>
+            <label for="font"> Font : </label><br>
+            <select name="font" id="font" autocomplete="font" style="width: 400px;"> 
+                <option value = "{{theme.1}}">{{theme.1}}</option>
+                <option value="Cursive">Cursive</option>
+                <option value="Emoji">Emoji</option>
+                <option value="Fangsong">Fangsong</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Math">Math</option>
+                <option value="Monospace">Monospace</option>
+                <option value="None">None</option>
+                <option value="Sans-Serif">Sans-Serif</option>
+                <option value="Serif">Serif</option>
+                <option value="System-UI">System-UI</option>
+                <option value="UI-Monospace">UI-Monospace</option>
+                <option value="UI-rounded">UI-rounded</option>
+                <option value="UI-sans-serif">UI-sans-serif</option>
+                <option value="UI-serif">UI-serif</option>
+            </select>            
+            <br><br>
+            <label for="size"> Size : </label><br>
+            <input type="number" name="size" id="size" value="{{theme.2}}" max="35" min="12" style="width: 200px; padding: 12px; font-size: 16px; background-color: inherit; color: white; border-radius: 8px; border: 1px solid white" >
+            <div id="font_tester" style="width: 380px; height: 50px; border:2px solid white; border-radius: 10px; margin-top: 20px; text-align: center; padding: 10px; font-size: {{theme.2}}px;">
+                Tested Font 
+            </div>            
+            
+            <br><br>
+            <h2> Color &amp; Background </h2>
+            <label for="color"> Color :  </label><br>
+            <select name="color_rec" id="color_rec" autocomplete="color_rec" style="width: 200px;"> 
+                <option value="{{theme.3}}">{{theme.3}}</option>
+                <option value="Green">Green</option>
+                <option value="Red">Red</option>
+                <option value="Orange">Orange</option>
+                <option value="Yellow">Yellow</option>
+                <option value="White">White</option>
+                <option value="Black">Black</option>
+                <option value="Grey">Grey</option>
+                <option value="Blue">Blue</option>
+                <option value="Pink">Pink</option>
+            </select>            
+            <select name="color_send" id="color_send" autocomplete="color_send" style="width: 200px;"> 
+                <option value="{{theme.4}}">{{theme.4}}</option>
+                <option value="Red">Red</option>
+                <option value="Green">Green</option>
+                <option value="Orange">Orange</option>
+                <option value="Yellow">Yellow</option>
+                <option value="White">White</option>
+                <option value="Black">Black</option>
+                <option value="Grey">Grey</option>
+                <option value="Blue">Blue</option>
+                <option value="Pink">Pink</option>
+            </select>            
+            <br><br>
+
+            <label for="Background"> Background :  </label><br><br>
+            <input type="color" name="bg1" id="color1" value="{{theme.5}}" style="width: 150px; margin-right: 50px;">
+            <input type="color" name="bg2" id="color2" value="{{theme.6}}" style="width: 150px;"><br><br>
+            
+            <label for="Border"> Border :  </label><br><br>
+            <input type="color" name="border" id="border" value="{{theme.7}}" style="width: 380px;">
+
+
+            <div id="font_tester_colors" style="width: 380px; height: 130px; border:2px solid {{theme.7}}; border-radius: 10px; margin-top: 20px; text-align: center; padding: 10px; background: radial-gradient(circle , {{theme.5}}, {{theme.6}});">
+                <p> <i style="float: left; padding: 10px; border: 1px solid {{theme.3}}; border-radius: 10px;" id="rece_msg"> Hello There !</i></p><br><br>
+                <p> <i style="float: right; padding: 10px; border: 1px solid {{theme.4}}; border-radius: 10px;" id="send_msg">  Hey Guys !</i></p>
+            </div>
+
+            <br>
+            <div style="justify-self: center;">
+                <input type="submit" value="Save" id="login" style="background-color: rgb(5, 106, 5); color:white; padding: 10px; width: 100px; border-radius: 10px; font-size: 15px; ">
+            </div>
+            
+                        
+        </form>
+    </div>
+
+    </section><br><br>
+    <script>
+        var tested =document.getElementById("font_tester")
+        var tested_color =document.getElementById("font_tester_colors")
+
+            document.getElementById("font").onclick = function(event){
+                var font = document.getElementById("font")
+                console.log(font.value)
+                tested.style.fontFamily = font.value;
+            }            
+            document.getElementById("size").onclick = function(event){
+                var size = document.getElementById("size")
+                tested.style.fontSize = size.value+"px";
+                console.log(tested.style.fontSize ," + ",size.value)
+            }            
+            document.getElementById("color_rec").onclick = function(event){
+                var color_rece = document.getElementById("color_rec") 
+                var rece_msg = document.getElementById("rece_msg")
+                rece_msg.style.borderColor = color_rece.value;
+                console.log(rece_msg.style.borderColor)
+            }            
+            document.getElementById("color_send").onclick = function(event){
+                var color_send = document.getElementById("color_send")
+                var send_msg = document.getElementById("send_msg")
+                send_msg.style.borderColor = color_send.value;
+                console.log(rece_msg.style.borderColor)
+            }
+
+            document.getElementById("color1").addEventListener("input",bgcolors);
+            document.getElementById("color2").addEventListener("input",bgcolors);
+            function bgcolors(){
+
+                var color_send1 = document.getElementById("color1").value 
+                var color_send2 = document.getElementById("color2").value
+                console.log("ACCESS") 
+                tested_color.style.background = `radial-gradient(circle , ${color_send1},${color_send2})`; 
+            }
+            document.getElementById("border").addEventListener("input",borderChnage)
+            function borderChnage(){
+                var colorBorder = document.getElementById("border").value
+                tested_color.style.borderColor = colorBorder;
+            }
+    </script>
+
+            
+{% endblock body %}

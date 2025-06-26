@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=[], initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2> Chat Box </h2><br>
+    <textarea id="msg-print-box" cols="100" rows="20">
+        {%for chats in chat%}
+{{chats.content}}
+        {%endfor%}
+    </textarea><br>
+    <input type="text" id="msg-box" width="80"><br>
+    <input type="button" value="Send" id="send"><br>
+    {{group_name|json_script:"group_name"}}
+    <script>
+        //var ws = new WebSocket("ws://127.0.0.1:8000/ws/sc/india/")
+        const group_name = document.getElementById("group_name").textContent
+        console.log("This is group Name : ",group_name) 
+        var ws = new WebSocket( "ws://"+window.location.host+"/ws/sc/"+group_name+"/")
+        ws.onopen = function(){
+            console.log("Connected Connection")
+            //ws.send("Hi")
+        }
+        ws.onmessage = function(event){
+            // document.getElementById("msg-print-box").innerText=event.
+            console.log("Receive Data",event.data)
+            const data = JSON.parse(event.data)
+            console.log("Receive Data",data['msg'])
+
+            const value_get = document.querySelector("#msg-print-box")
+            value_get.value += data['user'] +":"+ data['msg']+"\n"  
+        }
+        ws.onclose = function(event){
+            console.log("Disconnected")
+        }
+        document.getElementById('send').onclick = function(event){
+            const data_fetch = document.getElementById('msg-box')
+            const value = data_fetch.value
+            data_fetch.value = ""
+
+            ws.send(JSON.stringify({'msg':value})) 
+            
+        }
+    </script>
+</body>
+</html>

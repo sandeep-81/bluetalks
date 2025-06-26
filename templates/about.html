@@ -1,0 +1,52 @@
+{% extends "startup.html" %}
+
+{% block body%}
+<style>
+    footer{
+        position: static;
+        
+    }
+</style>
+<section>
+    <div class="About" style="width : 784px; margin-left: 319px; min-height: 450px;">
+        <h2> About BlueTalks </h2>
+        <p style="justify-content: center; text-align: justify;">
+            BlueTalks is a web-based chatting platform designed to revolutionize how users connect and communicate online. Developed using Django, Django Channels, HTML, CSS, JavaScript, Redis (Memurai), and SQLite, it offers a seamless and real-time chatting experience.
+
+            Users can initiate private one-to-one conversations by generating a unique 6-digit code and sharing it with a friend. They can also choose to chat randomly with unknown users, all without requiring signup or registration. This simplified approach makes it easy for users to connect quickly and start chatting.
+            
+            Real-time messaging is enabled through WebSockets, ensuring messages are delivered instantly between users. Once a code is generated, both users can enter it and are redirected to the chat screen for instant communication.
+            
+            For logged-in users, additional features are available, including:
+            
+            Sending and accepting friend requests
+            
+            Maintaining a friends list
+            
+            Saving chat history in the database
+            
+            Customizing the chat interface, such as message colors, background, and borders
+            
+            Managing personal details like address, phone, and password
+            
+            Choosing to hide their account from search results for enhanced privacy
+            
+            The platform also includes notifications for friend requests and new messages, enhancing user engagement.
+            
+            Upcoming features include:
+            
+            Group chats
+            
+            Photo and video sharing
+            
+            Social posting
+            
+            With a strong emphasis on usability, security, and performance, BlueTalks aims to be the go-to platform for an interactive, fast, and personalized chatting experience.
+            
+            
+        </p>
+
+    </div>
+</section><br><br>
+
+{% endblock %}

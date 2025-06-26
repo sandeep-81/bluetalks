@@ -1,0 +1,23 @@
+{% extends "startup.html" %}
+{% block title%} Code Generate {% endblock title%}
+{% block body%}
+
+    <section>
+        <div class="About">
+                <h1> Register </h1>
+                <form id="login" method="POST">
+                    {% csrf_token %}
+                    <label for="name">Username</label><br>
+                    <input type="text" name="name" id="name" placeholder="Enter Username" required><br>
+                    <label for="email">Email Address</label><br>
+                    <input type="text" name="email" id="email" placeholder="Email Address" required><br>
+                    <label for="password">Password</label><br>
+                    <input type="text" name="password" id="password" placeholder="Password" required>
+                    <input type="submit" value="Register" id="register"><br> 
+                    <button id="btns"><a href="/login/" id="b"> Sign in </a></button>
+                </form> 
+        </div>
+
+    </section>
+            
+{% endblock body %}

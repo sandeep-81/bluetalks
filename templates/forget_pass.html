@@ -1,0 +1,33 @@
+{% extends "startup.html" %}
+{% block title%} Code Generate {% endblock title%}
+{% block body%}
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+  {% endfor %}
+</ul>
+
+{% endif %}
+    <section>
+        <div class="Forget">
+                <h1> Forget Password </h1> 
+                <form id="forget" method="POST">
+                    {% csrf_token %}
+                    <label for="email">Enter Your Email Address</label><br>
+                    <input type="text" name="email" id="email-forget" placeholder="Email Address" value={{email}}><br>
+                    <input type="submit" value="Get OTP"><br><br>
+   
+                {% if email != "" and otp != 0%}
+                    <hr>
+                    <label for="otp" id="otp_l">Enter OTP</label><br>
+                    <input type="number" name="otp" id="otp" placeholder="X-X-X-X-X-X"><br>
+                    <input type="submit" value="Submit"><br> 
+                {% endif %}
+                </form>
+        </div>
+
+    </section>
+            
+{% endblock body %}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluetalks | {%block title%} {% endblock title%} </title>
+    <link href="\static\style.css" rel="stylesheet" type="text/css">
+    <link href="\static\admin.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% if user.is_authenticated%}
+    <nav id="admin-nav">
+            <a href="/home/"><img src="\static\Blue Talks_text.png" alt="Logo" height="130" id="logo"></a>
+            <ul id="admin-ul">
+                <span class="tooltip">
+                    <li><a href="/login_user_screen/" data-text="Home">
+                        <img src="\static\home-button.png" id="home" alt="Home">
+                    </a></li>
+                    <span class="tooltiptext" id = "tooltiptext">Home</span>
+                </span>
+                
+                <span class="tooltip">
+                    <li><a href="/user/"><img src="\static\chat-logo.png" id="random"></img></a></li>
+                    <span class="tooltiptext" id = "tooltiptext">Chats</span>
+                </span>
+                <span class="tooltip">
+                    <li><a href="/friends/"><img src="\static\friends.png" id="friends"></img></a></li>
+                    <span class="tooltiptext" id = "tooltiptext">Friends</span>
+                </span>
+            </ul>
+            <span class="reg-spa" style="display:flex; gap:10px; align-items : center;">  
+                <form method="GET"> 
+                    <input type="text" name="search" id="search" placeholder="Search Friends"> 
+                </form>
+                {%if filter_name%}
+                    <div id="find-friends" style="visibility:visible;">
+                        {% for p, j in filter_name.items %} 
+                        {% for i in j %} 
+
+                                <form method="GET" id="searchbox">
+                                    <div id="search_friend_div"> 
+                                        <input type="text" name="username_f" id="username_f" style="display: none;">
+                                        <p id="seached_f_{{ forloop.counter }}">{{i}} </p>
+                                        {% if p == "request" %}
+                                        <button type="button" style="background-color: green;" onclick="putDataInHidden('{{ forloop.counter }}','{{ i }}')" id="forsenddata_{{ forloop.counter }}">Added</button>
+                                        {% elif p == "unknown" %}
+                                        <button type="button" onclick="putDataInHidden('{{ forloop.counter }}','{{ i }}')" id="forsenddata_{{ forloop.counter }}">Add+</button>
+                                        {% elif p == "friends" %}
+                                        <button type="button" style="visibility: hidden;" onclick="putDataInHidden('{{ forloop.counter }}','{{ i }}')" id="forsenddata_{{ forloop.counter }}">Add+</button>
+                                        {% endif %} 
+                                    </form>
+                                </div>
+                                {%endfor%}
+                                {%endfor%}
+                    </div>
+                {%endif%}
+
+                        <span class="tooltip">
+                            <a href="/about/"><img src="\static\about.png" style="filter : invert(1); margin-right: 20px; cursor : pointer;" height= "28" width="28"></img></a>
+                            <span class="tooltiptext" id = "tooltiptext">About</span>
+                        </span>
+                        <span class="tooltip">
+                            <img src="\static\notification-logo.png" style="filter : invert(1); margin-right: 20px; cursor : pointer;" height= "28" onclick="showNotification()" width="28"></img>
+                            <span class="tooltiptext" id = "tooltiptext">Notifications</span>
+                        </span>
+                        <form method = "POST" action="{% url 'logout'%}">
+                        </form> 
+                        <span class="tooltip">
+                    <img src="\static\setting.png" style="filter : invert(1); margin-right: -17px; cursor : pointer;" height= "28" width="28" onclick="showSetting()"></img>
+                    <span class="tooltiptext" id = "tooltiptext">Settings</span>
+                </span>
+               <div id="acc-setting" style="height: 242px;">
+                   <h1>{{fullname}}</h1> 
+                   <p>{{email}}</p>
+                   <button class="acc" type="button"><a href="/account/">Account &amp; Privacy</a></button>
+                   <button class="acc" type="button"><a href="/themes/">Chat Themes</a></button>
+                   <button class="acc"><a href="{% url 'logout' %} ">Logout</a></button>
+                </div>           
+                
+                <div id="acc-notification">
+                    <h2>No Notification</h2>
+                </div>
+            </span>
+        </nav>
+        {% else %}
+        <nav>
+            <a href="/home/"><img src="\static\Blue Talks_white.png" alt="Logo" height="140"></a>
+            <ul class="list" >
+            <li><a href="/home/">Home</a></li>
+            <li><a href="#">Group</a></li>
+            <li><a href="/randchat/">Random</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+        <span>
+            <button class="registers"><a href="{% url 'login' %}">Sign In</a></button>
+            <button class="registers" id="green"><a href="{% url 'register' %}" id="only_a_color">Sign Up</button></a></button>
+        </span>
+    </nav>
+    {% endif %}
+
+    {%block body%} {% endblock body %}
+    
+    <footer>
+        <p>{{real_value}}</p>
+        <p>© 2025 Bluetalks</p>
+    </footer>
+            
+    {{value|json_script:"value"}}
+
+    <script>
+        function showSetting(){
+            if(document.getElementById("acc-setting").style.visibility == "visible"){
+                document.getElementById("acc-setting").style.visibility = "hidden";
+            }
+            else{
+                document.getElementById("acc-setting").style.visibility = "visible";
+            }
+        }        
+        function showNotification(){
+            if(document.getElementById("acc-notification").style.visibility == "visible"){
+                document.getElementById("acc-notification").style.visibility = "hidden";
+            }
+            else{
+                document.getElementById("acc-notification").style.visibility = "visible";
+            }
+        }
+        // var data= {}
+        // var code = 0
+        var Button = document.getElementById("search");
+        var pressed = Button.addEventListener("keydown",function(event){
+            console.log(event)
+            data = event 
+            if(Button.value != ""){  
+                document.getElementById("find-friends").style.visibility = "visible";
+                
+            }
+            else{
+                document.getElementById("find-friends").style.visibility = "hidden";
+                
+            }
+        })
+
+        var valueText = document.getElementById("value").textContent
+        if(valueText != "null"){
+            Button.value = valueText.replace(/"/g, '').slice(0, valueText.length - 1);
+        }
+        function putDataInHidden(i,counter){
+            // var data = document.getElementById("seached_f_"+counter).value
+            document.getElementById("username_f").innerText = counter 
+            console.log(document.getElementById("username_f").innerText) 
+            let username = document.getElementById("username_f").innerText 
+
+            fetch('/login_user_screen/?username_f=' + encodeURIComponent(username), {
+            method: 'GET'
+            }).then(response => response.text())  // Response ko text format me lena
+
+            var btn_send = document.getElementById("forsenddata_"+i) 
+            btn_send.innerText = "Added"
+            btn_send.style.backgroundColor = "green"
+                
+    }
+
+        // console.log(code) 
+        // console.log(data) 
+        
+        // if(document.getElementById("find-friends").value != "")
+    </script>
+</body>
+</html>
