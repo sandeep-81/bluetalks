@@ -124,7 +124,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get("REDIS_URL")],  # secret bana ke use karein
+            "hosts": [os.environ.get("REDIS_URL="rediss://default:AXLDAAIjcDFhZjFjZTlhNjM1MWY0MzYwODVmOGU4MjJmOGUzYWFjOHAxMA@endless-ringtail-29379.upstash.io:6379"")],  # secret bana ke use karein
         },
     },
 }
