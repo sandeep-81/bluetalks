@@ -62,7 +62,10 @@
     const group_no = document.getElementById("group_no").textContent
     const genuser = document.getElementById("genuser").textContent
     const filluser = document.getElementById("filluser").textContent
-    var ws = new WebSocket("ws://"+window.location.host+"/ws/sc/chat/"+group_no+"/")
+    let protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    let ws = new WebSocket(protocol + "://" + window.location.host + "/ws/sc/chat/" + group_no + "/");
+
+    // var ws = new WebSocket("ws://"+window.location.host+"/ws/sc/chat/"+group_no+"/")
     
     var usernamechange = document.getElementsByClassName('showuser')[0] 
 
