@@ -136,4 +136,8 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'app.user'
- 
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://bluetalks.onrender.com"
+]
+
