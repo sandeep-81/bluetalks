@@ -185,6 +185,7 @@ def registerotp(request):
             return redirect('login')
         else :
             messages.add_message(request, messages.ERROR, "Invalid OTP")
+            return render(request , "register_otp.html")
 
     return render(request , "register_otp.html")
     
