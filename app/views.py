@@ -107,6 +107,7 @@ def verify_code(request):
             return redirect(f'/chat/{group_no}/') 
         else:  
             return render(request,"generatecode.html",{'rand':"Generate"})
+    return redirect('/')
         
 def about(request):
     return render(request , "about.html")
