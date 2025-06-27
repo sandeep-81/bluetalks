@@ -1,5 +1,8 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()  
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -120,14 +123,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # <-- ye line zaroori hai
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get("REDIS_URL="rediss://default:AXLDAAIjcDFhZjFjZTlhNjM1MWY0MzYwODVmOGU4MjJmOGUzYWFjOHAxMA@endless-ringtail-29379.upstash.io:6379"")],  # secret bana ke use karein
+            "hosts": [os.environ.get("REDIS_URL")],
         },
     },
 }
+
 
 
 REST_FRAMEWORK = {
