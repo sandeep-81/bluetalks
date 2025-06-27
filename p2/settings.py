@@ -14,8 +14,7 @@ SECRET_KEY = 'django-insecure-#2%xo!137#xp1#4p&bvnkt5vwuyieci2r$a6l4iwfqx^7t4uzk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['bluetalks.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
