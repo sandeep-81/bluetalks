@@ -1,0 +1,1 @@
+web: daphne p2.asgi:application 
