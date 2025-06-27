@@ -133,15 +133,18 @@ class RandomChatSync(SC):
         # async_to_sync(channel_layer.group_add)("queue_chat",channel_name)
         # print("THIS IS CHANNEL NAME : ",self.channel_name)
 
-    def connect_random(self,channel_name):
-        global queue_elements 
-        if len(queue_elements) > 1:
-            queue_elements.remove(channel_name)
-            matched_channel = queue_elements[0] 
-            queue_elements.remove(matched_channel) 
-            self.chat_no = f"chat_{randint(100000, 999999)}"
-            return matched_channel , self.chat_no 
-        return None , None 
+    def connect_random(self, channel_name):
+      global queue_elements 
+      if len(queue_elements) > 1:
+          queue_elements.remove(channel_name)
+          matched_channel = queue_elements[0] 
+          queue_elements.remove(matched_channel) 
+          
+          # ✅ Always generate chat_no only once
+          self.chat_no = f"chat_{randint(100000, 999999)}"
+          return matched_channel , self.chat_no 
+      return None , None 
+
 
     def connect(self):
         print("Websocket Connect")
