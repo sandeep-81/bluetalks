@@ -17,7 +17,7 @@
                 </form>
                 {% if rand != "Generate"%}
                     <form action="/chat/{{rand}}/"> 
-                    {% csrf_token %}
+<!--                     {% csrf_token %} -->
                     <button id="go-to-chat" name="go-to-chat" class="local-btn"> Go to Chat</button>
                     </form>
                 {% endif %}
