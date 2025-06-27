@@ -46,7 +46,7 @@
                 fill.style.backgroundColor = "green";
                 document.getElementById("offical-gen").style.display = 'inline-block';
                 document.getElementById("offical-fill").style.display = "none";
-                
+                console.log(reg , fill , filled , code)
             }   
         fill.onclick = function(event){
             fill.style.backgroundColor = "red";
@@ -54,12 +54,14 @@
             reg.style.backgroundColor = "green";
             document.getElementById("offical-fill").style.display = "inline-block";
             document.getElementById("offical-gen").style.display = "none";
+            console.log(reg , fill , filled , code)
             
         }
         filled.onclick = function(event){
             let rand = document.getElementById("rand").textContent
             //if(code.value == rand){
             window.location.href = "ws://127.0.0.1:8080/ws/sc/chat/"+code.value
+                console.log(reg , fill , filled , code)
              
         }
         
